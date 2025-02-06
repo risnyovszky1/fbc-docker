@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  webserver:
+    image: nginx:latest
+    container_name: grandus-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      #- ./app:/app
+      - /Users/risnyo/PhpstormProjects/grandus:/app
+    networks:
+      - app-network
+
+  php:
+    image: "grandus-php"
+    container_name: grandus-php
+    build: ./php
+    volumes:
+      #- ./app:/app
+      - /Users/risnyo/PhpstormProjects/grandus:/app
+    networks:
+      - app-network
+
+  db:
+    image: mariadb:latest
+    container_name: grandus-db
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"
+      MYSQL_DATABASE: "grandus"
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./data/db:/source
+    ports:
+      - 3306:3306
+    networks:
+      - app-network
+
+  elasticsearch:
+    container_name: grandus-elastic
+    build:
+      context: ./elastic
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - DISABLE_SECURITY_PLUGIN=true
+    user: "1000:1000"
+    volumes:
+      - ./data/elastic/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./data/elastic/hunspell:/usr/share/elasticsearch/config/hunspell
+    networks:
+      - app-network
+
+volumes:
+  mysqldata: { }
+
+networks:
+  app-network:
+    driver: bridge
