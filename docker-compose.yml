@@ -8,18 +8,25 @@ services:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-      #- ./app:/app
-      - /Users/risnyo/PhpstormProjects/grandus:/app
+      - ./nginx/log:/var/log/nginx
+      - /Users/risnyo/PhpstormProjects/grandus:/var/www/html
     networks:
       - app-network
 
   php:
-    image: "grandus-php"
     container_name: grandus-php
     build: ./php
     volumes:
+      - /Users/risnyo/PhpstormProjects/grandus:/var/www/html
+    networks:
+      - app-network
+
+  php-sync:
+    container_name: grandus-sync-php
+    build: ./php-sync
+    volumes:
       #- ./app:/app
-      - /Users/risnyo/PhpstormProjects/grandus:/app
+      - /Users/risnyo/PhpstormProjects/grandus-sync:/app
     networks:
       - app-network
 
