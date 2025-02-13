@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   webserver:
     image: nginx:latest
@@ -27,6 +25,7 @@ services:
     volumes:
       #- ./app:/app
       - /Users/risnyo/PhpstormProjects/grandus-sync:/app
+      - ./data/sync/php.ini:/usr/local/etc/php/php.ini
     networks:
       - app-network
 

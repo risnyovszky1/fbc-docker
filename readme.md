@@ -9,6 +9,16 @@
 docker-compose up --build -d
 ```
 
+## Set hosts
+
+add Grandus localhosts to `/etc/hosts` file
+
+```
+127.0.0.1 grandus.test
+127.0.0.1 grandus-sync.test
+```
+
+
 ## Import DB
 
 - dump database
@@ -41,3 +51,4 @@ docker exec -i grandus-php cd /protected && composer install
 ```
 docker exec -i grandus-php php protected/yii migrate
 ```
+
