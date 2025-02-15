@@ -13,7 +13,7 @@ services:
 
   php:
     container_name: grandus-php
-    build: ./php
+    build: build/php
     volumes:
       - ${GRANDUS_PATH}:/var/www/html
     networks:
@@ -21,7 +21,7 @@ services:
 
   php-sync:
     container_name: grandus-sync-php
-    build: ./php-sync
+    build: build/php-sync
     volumes:
       - ${SYNC_PATH}:/var/www/html
       - ./data/sync/php.ini:/usr/local/etc/php/php.ini
@@ -45,7 +45,7 @@ services:
   elasticsearch:
     container_name: grandus-elastic
     build:
-      context: ./elastic
+      context: build/elastic
     ports:
       - "9200:9200"
       - "9300:9300"
