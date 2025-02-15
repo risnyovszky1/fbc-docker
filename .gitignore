@@ -1,3 +1,4 @@
 .idea
 nginx/log
 nginx/log/*
+.env

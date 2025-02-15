@@ -5,9 +5,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-      - ./nginx/log:/var/log/nginx
-      - /Users/risnyo/PhpstormProjects/grandus:/var/www/html
+      - ./data/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./data/nginx/log:/var/log/nginx
+      - ${GRANDUS_PATH}:/var/www/html
     networks:
       - app-network
 
@@ -15,7 +15,7 @@ services:
     container_name: grandus-php
     build: ./php
     volumes:
-      - /Users/risnyo/PhpstormProjects/grandus:/var/www/html
+      - ${GRANDUS_PATH}:/var/www/html
     networks:
       - app-network
 
@@ -23,8 +23,7 @@ services:
     container_name: grandus-sync-php
     build: ./php-sync
     volumes:
-      #- ./app:/app
-      - /Users/risnyo/PhpstormProjects/grandus-sync:/app
+      - ${SYNC_PATH}:/var/www/html
       - ./data/sync/php.ini:/usr/local/etc/php/php.ini
     networks:
       - app-network
