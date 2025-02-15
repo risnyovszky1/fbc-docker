@@ -31,7 +31,7 @@ RUN mkdir -p /opt/oracle && \
     ldconfig && \
     echo "Finished setting up the Oracle SDK."
 
-RUN docker-php-ext-install pdo pdo_mysql soap gd zip intl
+RUN docker-php-ext-install pdo pdo_mysql soap zip intl
 
 # Install OCI8 extension
 RUN docker-php-ext-configure oci8 --with-oci8=instantclient,/opt/oracle/instantclient \

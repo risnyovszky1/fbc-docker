@@ -2,9 +2,11 @@ FROM php:7.4-fpm
 
 # Install necessary extensions
 RUN apt-get update && \
-    apt-get install -y libxml2-dev libpng-dev libzip-dev
+    apt-get install -y libxml2-dev libpng-dev libzip-dev imagemagick libmagickwand-dev
 
-RUN docker-php-ext-install pdo pdo_mysql soap gd zip intl
+RUN docker-php-ext-install pdo pdo_mysql soap zip intl
+
+RUN pecl install imagick && docker-php-ext-enable imagick
 
 # Allow Composer in the container
 ARG COMPOSER_ALLOW_SUPERUSER=1
