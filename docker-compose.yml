@@ -16,6 +16,7 @@ services:
     build: build/php
     volumes:
       - ${GRANDUS_PATH}:/var/www/html
+      - ./data/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - app-network
 

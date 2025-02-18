@@ -51,7 +51,7 @@ ENV COMPOSER_AUTH=${COMPOSER_AUTH}
 COPY --from=composer:1 /usr/bin/composer /usr/local/bin/composer
 
 # Set working directory
-WORKDIR /app
+WORKDIR /var/www/html
 
 # Ensure PHP-FPM listens on all interfaces
 RUN sed -i "s/listen = \/run\/php\/php8.3-fpm.sock/listen = 9000/" /usr/local/etc/php-fpm.d/www.conf
